@@ -1,0 +1,16 @@
+# Configuration for this app
+# "default" is for all environments, specific environment configuration has priority over the shared configuration.
+# A configuration value should appear either in default (possibly overridden in some of the environments) 
+# or in all the environments
+
+config:
+  default:
+    project_memcached_server: localhost:11211
+    texts_backup_directory: tmp/texts
+  
+  development:
+      
+  test:
+  
+  production:
+    texts_backup_directory: /home/deploy/<project>/shared/texts

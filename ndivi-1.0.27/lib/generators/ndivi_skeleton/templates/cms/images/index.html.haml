@@ -1,0 +1,9 @@
+- if @images.length > 0
+  %ul{:style=>"list-style: none"}
+    - @images.each do |image| 
+      %li{:style=>"float: left; margin: 8px; width: 100px; height: 100px; border: 1px solid #CCC; display: table; text-align: center"}
+        %div{:style=>"display: table-cell; vertical-align: middle"}
+          %a{:href=>"javascript:void(0)", :onclick=>"ndivi_insert_image('#{image}', '#{image.split("/").last}');"}
+            = image_tag( image, :style=>"max-height: 100px; max-width: 100px" )
+- else
+  No Images Uploaded Yet.

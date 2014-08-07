@@ -1,0 +1,57 @@
+- content_for(:head) do
+  = javascript_include_tag 'admin_texts'
+
+= hidden_field_tag(:selected_locale, @selected_locale)
+
+.intro.texts_header
+  %ul.bill.locales_menu
+    - t("locales").sort{|p1, p2| p2[0] <=> p1[0]}.each do |key, text| 
+      - if @selected_locale.to_s == key.to_s
+        %li.active= text
+      - else          
+        %li= link_to(text, admin_texts_path(:locale=>key))
+  %a.more{:href=>"#", :onclick => "if (confirm('#{t("admin.texts.deploy_confirm")}')) { $('#deploy_form').submit(); } return false"}
+    %em= t("admin.texts.deploy")
+  %a.more{:href=>"#", :onclick => "if (confirm('#{t("admin.texts.revert_confirm")}')) { $('#revert_form').submit(); } return false"}
+    %em= t("admin.texts.revert")
+
+= form_tag deploy_admin_texts_path, :id => "deploy_form", :method=>:post do
+  = hidden_field_tag(:branch, params[:branch], :class => "branch")
+  &nbsp;
+= form_tag revert_admin_texts_path, :method=>:post, :id => "revert_form" do
+  &nbsp;
+  = hidden_field_tag(:branch, params[:branch], :class => "branch")
+
+= t("admin.texts.branch_select")
+- if !params[:branch].blank? 
+  - @default_branch = params[:branch]
+= select_tag(:branch, branch_options)
+#texts{:class => @selected_locale.to_s}
+  %table
+    %tr
+      %th.key Key
+      - for locale in [@selected_locale]
+        %th.locale= t("locales.#{locale}")
+    - for key in @keys
+      - path = key.split(".")
+      - next if path.length == 1
+      - branch_root = path.first
+      %tr.text{:class => "text_#{branch_root}" + (@modified_keys.include?(key) ? " modified" : ""), "data-key"=>key, "data-branch-root" => branch_root, :style => "display: none"}        
+        - help = t("#{@selected_locale}.#{key}", :locale=>:help, :default=>"")
+        - help = nil unless !help.blank? && help.class == String
+        %td.key{:style => "padding-#{@selected_locale.to_s == 'he' ? 'right' : 'left'}:#{(path.length-1)*20}px", :title=>help, :class=>help ? "cms-help" : ""}
+          = path.last.to_s.humanize
+        - prev = ""
+        - for locale in [@selected_locale]
+          %td.locale{:class=>"locale_"+locale, "data-locale"=>locale}
+            - next if @texts[locale][key].nil?
+            .html_content= raw truncate_html(display_text(@texts[locale][key]).to_s, :max_length=>300)
+            .editing{:style => "display: none"}              
+              = text_area_tag "value_#{key.gsub('.', '__')}", raw(display_text(@texts[locale][key]).to_s), :rows=>30, :cols=>80, :class=>"text_editor locale_"+locale, :style =>"width:650px; height: 150px"
+              .actions
+                = submit_tag t("admin.texts.cancel"), :class => "cancel"
+                = submit_tag t("admin.texts.save"), :class => "save"
+                %span.attribute_name= "#{key}"
+                = link_to("Rich-Text Mode", "#", :class => "rich_text_mode") 
+                = link_to("Plain-Text Mode", "#", :class => "plain_text_mode", :style => "display: none")
+

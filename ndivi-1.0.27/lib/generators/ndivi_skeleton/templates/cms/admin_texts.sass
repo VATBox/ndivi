@@ -1,0 +1,97 @@
+.intro
+  width: 90%
+  overflow: hidden
+  padding: 5px 0 0
+  margin-bottom: -1px
+  position: relative
+  z-index: 3
+
+  .more
+    float: right
+    font: bold 12px/15px Arial, Helvetica, sans-serif
+    margin: 0 0 0 11px
+    cursor: pointer
+    text-decoration: none !important
+
+
+.locale_he
+  direction: rtl
+  text-align: right
+
+#revert_form, #deploy_form
+  font-size: 1px
+  line-height: 1px
+
+#texts
+  margin-top: 10px
+  direction: ltr
+  text-align: left
+  table 
+    border-collapse: collapse
+    td.key, td.locale, th
+      border-left: 1px solid gray
+      border-right: 1px solid gray
+      border-bottom: 1px solid #dddddd
+      white-space: nowrap
+      padding: 2px 5px    
+    td.key
+      width: 200px
+      padding-left: 20px
+      font-weight: normal
+      color: #444444
+    td.locale
+      cursor: pointer
+      font-weight: bold
+      color: #555555
+      width: 650px
+      overflow: hidden
+      &:hover
+        color: #db1703
+        background-color: #f6f0c5
+      &.expanded
+        cursor: auto
+        font-weight: normal
+        color: #555555
+        background-color: #e3ecef
+      textarea
+        padding: 4px
+      .rich_text_mode, .plain_text_mode
+        text-decoration: underline  
+             
+      .html_content
+        max-width: 650px
+            
+    th
+      background-color: #dddddd
+      font-size: 14px
+      padding-top: 4px
+      padding-bottom: 4px
+      color: #666666
+    .text
+      &.modified
+        td.key
+          color: green
+          font-weight: bold     
+
+  &.he
+    direction: rtl
+    table
+      th
+        text-align: right
+      td
+        &.key
+          text-align: right
+  .actions
+    margin: 8px 0px
+    .attribute_name
+      font-weight: normal
+      color: #888888
+      padding-right: 200px      
+        
+#text_editor
+  direction: ltr
+  text-align: left
+
+.cms-help
+  cursor: help
+    

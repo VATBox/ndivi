@@ -1,0 +1,6 @@
+Description:
+    Generates the skeleton used by projects that use the Ndivi gem
+
+Example:
+    rails generate ndivi_skeleton 
+
