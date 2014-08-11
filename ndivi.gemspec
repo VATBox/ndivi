@@ -28,6 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'ya2yaml'
   spec.add_runtime_dependency 'logging'
   spec.add_runtime_dependency 'fileutils'
-  spec.add_runtime_dependency 'stringio'
 
 end
