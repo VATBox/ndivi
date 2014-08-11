@@ -1,6 +1,5 @@
 # Copyright Ndivi Ltd.
-require 'rubygems'
-require 'cssmin'
+#require 'cssmin'
 require 'jsmin'
 
 
