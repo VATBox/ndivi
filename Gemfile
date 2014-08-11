@@ -1,11 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'cssmin'
-gem 'jsmin'
-gem 'nokogiri'
-gem 'html_truncator'
-gem 'ya2yaml'
-gem 'rails'
-gem 'logging'
-gem 'fileutils'
-gem 'stringio'
+# Specify your gem's dependencies in ndivi.gemspec
+gemspec
