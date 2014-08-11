@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'nokogiri'
+gem 'html_truncator'
+gem 'ya2yaml'
+gem 'fileutils'
+gem 'cssmin'
+gem 'jsmin'
+gem 'rails'
+gem 'logging'
