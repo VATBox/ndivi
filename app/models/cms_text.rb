@@ -1,8 +1,8 @@
 # Copyright Ndivi Ltd.
 if defined?(ActiveRecord::Railtie)
 
-require 'ya2yaml'
-require 'fileutils'
+#require 'ya2yaml'
+#require 'fileutils'
 class Ya2YAML
   alias_method :orig_is_one_plain_line?, :is_one_plain_line?
   def is_one_plain_line?(string) 

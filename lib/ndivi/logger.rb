@@ -25,7 +25,7 @@ module Ndivi
   def self.init_simple_logging(options={})
     pattern = options.delete(:pattern) || "[%d] [%F] [%-5l] %m\n"
 
-    require 'logging'
+#    require 'logging'
     Logging.init :debug, :info, :warn, :error, :fatal
     layout = Logging::Layouts::Pattern.new :pattern => pattern
 

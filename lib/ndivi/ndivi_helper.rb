@@ -1,6 +1,6 @@
 # Copyright Ndivi Ltd.
 #require 'cssmin'
-require 'jsmin'
+#require 'jsmin'
 
 
 module Ndivi::NdiviHelper

@@ -1,6 +1,6 @@
 # Copyright Ndivi Ltd.
-require 'nokogiri'
-require 'html_truncator'
+#require 'nokogiri'
+#require 'html_truncator'
 module TextHelper
  
   def truncate_html(content, options={})    
