@@ -27,6 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'html_truncator'
   spec.add_runtime_dependency 'ya2yaml'
   spec.add_runtime_dependency 'logging'
-  spec.add_runtime_dependency 'fileutils'
 
 end
