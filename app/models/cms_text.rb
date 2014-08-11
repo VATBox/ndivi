@@ -3,6 +3,8 @@ if defined?(ActiveRecord::Railtie)
 
 #require 'ya2yaml'
 #require 'fileutils'
+=begin
+
 class Ya2YAML
   alias_method :orig_is_one_plain_line?, :is_one_plain_line?
   def is_one_plain_line?(string) 
@@ -14,7 +16,7 @@ class Ya2YAML
     orig_emit_block_string(str.sub(/^\s+/, ''), level)
   end 
 end
-
+=end
 class CmsText < ActiveRecord::Base
   serialize :value
 
