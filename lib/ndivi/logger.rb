@@ -31,7 +31,7 @@ module Ndivi
 
     logfilename = ENV["RAILS_LOG"] || Rails.env
     default_appender = Logging::Appenders::RollingFile.new('default', 
-      {:filename => "#{Rails.root}/log/#{logfilename}.log", :age => 'daily', :keep => 10, :safe => true, :layout => layout}.merge(options))
+      {:filename => "#{Rails.root}/log/#{logfilename}.log", :age => 'daily', :keep => 10,:size =>50000000, :safe => true, :layout => layout}.merge(options))
 
     logger = Logging::Logger['server']
     logger.instance_eval do
