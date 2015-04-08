@@ -6,10 +6,10 @@ require 'ndivi/version'
 Gem::Specification.new do |spec|
   spec.name          = "ndivi"
   spec.version       = Ndivi::VERSION
-  spec.authors       = ["galharth"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.authors       = ["galharth", 'Denis Polulyakh']
+  spec.email         = ["dpoluliah@gmail.com"]
+  spec.summary       = %q{Support library for VATBox project}
+  spec.description   = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
 
