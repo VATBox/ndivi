@@ -92,16 +92,8 @@ Capistrano::Configuration.instance(:must_exist).load do
     desc "Create static directories"
     task :create_static, :roles => :web, :except => { :no_release => true } do
       run "mkdir -p #{current_release}/public/cache"
-      run "mkdir -p #{current_release}/public/stylesheets/g"
-      run "mkdir -p #{current_release}/public/javascripts/g"
     end
     
-    desc "Update Sass stylesheets"
-    task :update_stylesheets, :roles => :web, :except => { :no_release => true } do
-      rails_env = fetch(:rails_env, "production")
-      run "cd #{latest_release}; /bin/rm -rf public/stylesheets/g/*; /bin/rm -rf public/javascripts/g/*; RAILS_ENV=#{rails_env} rake sass:update"
-    end
-
     desc "Bundle"
     task :bundle do
       run "cd #{latest_release}; bundle --local || bundle" 
