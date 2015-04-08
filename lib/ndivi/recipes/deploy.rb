@@ -111,6 +111,5 @@ Capistrano::Configuration.instance(:must_exist).load do
   
   after "deploy:update_code", "deploy:bundle"
   after "deploy:update_code", "deploy:create_static"
-  after "deploy:update_code", "deploy:update_stylesheets"
 end
 
