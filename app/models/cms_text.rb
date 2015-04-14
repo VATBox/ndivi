@@ -40,7 +40,7 @@ class CmsText < ActiveRecord::Base
   end
 
   def self.pre_deploy_check
-    if !texts_up_to_date?
+    unless texts_up_to_date?
       $stderr.print("Texts are not up-to-date! Please either deploy or revert!")
       exit(1)
     end
