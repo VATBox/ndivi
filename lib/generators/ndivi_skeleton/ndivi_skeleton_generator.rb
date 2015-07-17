@@ -52,7 +52,6 @@ Ndivi::CACHE = MemCache.new Configuration.project_memcached_server, :namespace =
     empty_directory "tmp/texts"
     empty_directory "app/views/stylesheets/admin"
     copy_file 'cms/admin_controller.rb', 'app/controllers/admin_controller.rb'
-    copy_file 'cms/admin_texts.sass', 'app/views/stylesheets/admin/texts.sass'
     copy_file 'cms/admin_texts.js', 'public/javascripts/admin_texts.js'
 
     migration_template 'cms/create_cms_texts.rb', 'db/migrate/create_cms_texts.rb'
