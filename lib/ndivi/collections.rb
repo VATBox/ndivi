@@ -2,8 +2,7 @@
 module Enumerable
   def hashify
     result={}
-    self.each do
-      |e|
+    self.each do |e|
       e = yield(e) if block_given?
       next if e.nil?
       result[e[0]] = e[1]
@@ -21,21 +20,13 @@ module Enumerable
       is_new
     end
   end
-
-  def average
-    the_sum = 0
-    the_count = 0
-    each{|val| the_count+=1; the_sum+=val}
-    the_sum.to_f/the_count
-  end
 end
 
 class Hash
   def hashify
     return self unless block_given?
     result={}
-    self.each do
-      |e|
+    self.each do |e|
       e = yield(e) if block_given?
       next if e.nil?
       result[e[0]] = e[1]
