@@ -17,7 +17,6 @@ module Ndivi
     def reload_texts
       ApplicationController.last_texts_reload_time = Time.now
       I18n.reload!
-      Configuration.reload!
     end
 
     def self.included(base)
