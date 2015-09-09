@@ -8,6 +8,4 @@ class ApplicationController < ActionController::Base
   
   helper Ndivi::NdiviHelper
   include Ndivi::ApplicationControllerExtensions
-  
-  before_filter :ensure_texts_uptodate
 end
