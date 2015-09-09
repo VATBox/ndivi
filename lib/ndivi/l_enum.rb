@@ -42,46 +42,38 @@ class LEnum
     else
       @hash = hash_or_base
     end
-    reload_if_needed
   end
 
-  def reload_if_needed
-    if @last_reload_time.nil? || (ApplicationController.respond_to?(:last_texts_reload_time) && @last_reload_time < ApplicationController.last_texts_reload_time)
-      @last_reload_time = ApplicationController.last_texts_reload_time
-      @symbols = _symbols
-      @symbol2value = @hash || @symbols.hashify{|symbol| [symbol, symbol.to_s]} 
-      @value2symbol = @symbol2value.hashify(&:reverse)
-      raise "Multiple symbols with same value" if @symbol2value.length != @value2symbol.length
-      @values = @symbols.map{|symbol| @symbol2value[symbol]}
-    end
-  end
-  
   def symbols
-    reload_if_needed
-    @symbols    
+    @symbols ||= _symbols
   end
   
   def values
-    reload_if_needed
-    @values
+    @values ||= symbols.map{|symbol| symbol2value[symbol]}
+  end
+  
+  def symbol2value
+    @symbol2value ||= @hash || symbols.hashify{|symbol| [symbol, symbol.to_s]}
+  end
+  
+  def value2symbol
+    @value2symbol ||= symbol2value.hashify(&:reverse)
   end
 
   def [](symbol)
-    reload_if_needed
-    value = @symbol2value[symbol]
+    value = symbol2value[symbol]
     raise NotFound.new(self, symbol) if value.nil? 
     value
   end
   
   def symbol_for(value)
-    reload_if_needed
-    symbol = @value2symbol[value]
+    symbol = value2symbol[value]
     raise NotFound.new(self, value) if symbol.nil? 
     symbol
   end
   
   def css_class_for(value)
-    return symbol_for(value).to_s.downcase
+    symbol_for(value).to_s.downcase
   end
   
   def t(value, ioptions={})
@@ -89,7 +81,6 @@ class LEnum
   end
 
   def text(value, ioptions={})
-    reload_if_needed
     _text(value.is_a?(Symbol) ? value : symbol_for(value), ioptions)
   end
   
@@ -102,12 +93,10 @@ class LEnum
   end 
     
   def options(ioptions={})
-    reload_if_needed
-    self.order.map{|sym| symbol=sym.to_sym; [_text(symbol, ioptions), @symbol2value[symbol]]}
+    self.order.map{|sym| symbol=sym.to_sym; [_text(symbol, ioptions), symbol2value[symbol]]}
   end
 
   def find(string, ioptions={:locale=>:en})
-    reload_if_needed
     return nil if string.nil?
     string = string.downcase
     translations = I18n.t("#{@path}.texts", ioptions)
@@ -118,22 +107,19 @@ class LEnum
   end
   
   def find_many(strings, ioptions={:locale=>:en})
-    reload_if_needed
     strings.map{|string| find(string, ioptions)}
   end
 
   def random
-    reload_if_needed
-    @values[rand @values.length]
+    values[rand values.length]
   end
 
   def enumset_random
-    reload_if_needed
-    array_mask = rand(1<<@values.length)
+    array_mask = rand(1 << values.length)
     array_mask_index = 0
     value = 0
     while (array_mask > 0)
-      value |= 1 << @values[array_mask_index] if array_mask & 1 == 1
+      value |= 1 << values[array_mask_index] if array_mask & 1 == 1
       array_mask_index += 1 
       array_mask >>= 1
     end
@@ -170,13 +156,13 @@ class LEnum
   
   def enumset_options(value, ioptions={})
     selected = enumset_values(value)
-    options(ioptions).map do
-      |text, value|
-      [text, value, selected.include?(value)]
+    options(ioptions).map do |text, _value|
+      [text, _value, selected.include?(_value)]
     end
   end
 
   private
+  
   def _text(symbol, ioptions)
     ioptions = ioptions.dup
     scope = ioptions.delete(:scope)
